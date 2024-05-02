@@ -1,0 +1,5 @@
+todo list with login functionality. you can login to see ur todos
+architecture
+react, vite
+firebase auth (passport is harder)
+postgresql (in vercel)
