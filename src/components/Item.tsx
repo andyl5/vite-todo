@@ -2,35 +2,49 @@ import { useState } from "react"
 import EditItem from "./EditItem"
 
 type Props = {
-	name: string,
 
+	itemObject: {
+		id: number,
+		name: string,
+		status: 'ongoing' | 'completed',
+	},
+	updateStatus: (idToUpdate: number) => void,
+	deleteItem: (idToRemove: number) => void
 }
 
-export default function Item( { name }: Props ) {
+export default function Item( { itemObject, updateStatus, deleteItem }: Props ) {
+	const { id, name, status } = itemObject
 
 	const [isEditing, setIsEditing] = useState<boolean>(false)
 	const [itemName, setItemName] = useState<string>(name)
 
 	const itemElement = (
-		<div className="w-[600px] border-2 p-4 mb-4 bg-white">
-		<p className="text-[26px] mb-2">{itemName}</p>
-			<div className="flex gap-x-2">
-				<div className="w-1/3">
-					<button 
-						className="w-full bg-slate-400 hover:bg-slate-500 active:bg-slate-600 text-gray-950 hover:text-gray-900 active:text-gray-800 transition-all rounded py-2 text-[18px]"
-						onClick={() => {
-							setIsEditing(true)
-						}}>Edit</button>
+		<div className="border-2 p-4 mb-4 bg-white flex">
+			<input type="checkbox" onClick={() => updateStatus(id)} checked={status === 'completed' ? true : false}
+			className="w-8 mr-4 rounded-lg"/>
+
+			<div className="w-full">				
+				<p className="text-[26px] mb-2">{itemName}</p>
+				<div className="flex gap-x-2">
+				<div className="w-1/2">
+						<button 
+							className="w-full bg-slate-400 hover:bg-slate-500 active:bg-slate-600 text-gray-950 hover:text-gray-900 active:text-gray-800 transition-all rounded py-2 text-[18px]"
+							onClick={() => {
+								setIsEditing(true)
+							}}>Edit</button>
+					</div>
+					<div className="w-1/2">
+						<button 
+							className="w-full bg-red-700 hover:bg-red-800 active:bg-red-900 text-slate-50 hover:text-slate-100 active:text-slate-200 transition-all rounded py-2 text-[18px]"
+							onClick={() => deleteItem(id)}
+						>Delete</button>
+					</div>
+
 				</div>
-				<div className="w-1/3">
-					<button 
-						className="w-full bg-red-700 hover:bg-red-800 active:bg-red-900 text-slate-50 hover:text-slate-100 active:text-slate-200 transition-all rounded py-2 text-[18px]"
-					>Delete</button>
-				</div>
-				<div className="w-1/3">
-					<button className="w-full bg-green-700 hover:bg-green-800 active:bg-green-900 text-slate-50 hover:text-slate-100 active:text-slate-200 transition-all rounded py-2 text-[18px]">Mark Complete</button>
-				</div>
-			</div>
+		</div>
+
+
+
 		</div>
 	)
 

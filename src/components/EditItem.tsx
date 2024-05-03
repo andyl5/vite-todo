@@ -9,10 +9,11 @@ type Props = {
 export default function EditItem( { itemName, setItemName, setIsEditing }: Props) {
 
   const [tempItemName, setTempItemName] = useState<string>(itemName)
+  const [showWarning, setShowWarning] = useState(false)
 
   return (
     <div>
-      <div className="w-[600px] border-2 p-4 mb-4 bg-white">
+      <div className="border-2 p-4 mb-4 bg-white">
       <input 
         className="text-[26px] mb-2 w-full outline outline-1 outline-slate-500 focus:outline-black focus:outline-2"
         value={tempItemName}
@@ -33,12 +34,18 @@ export default function EditItem( { itemName, setItemName, setIsEditing }: Props
             <button 
               className="w-full bg-black hover:bg-gray-950 active:bg-gray-900 text-white transition-all rounded py-2 text-[18px]"
               onClick={() => {
-                setItemName(tempItemName)
-                setIsEditing(false)
+                if (tempItemName.trim().length > 0) {
+                  setItemName(tempItemName)
+                  setIsEditing(false)
+                  setShowWarning(false)
+                } else {
+                  setShowWarning(true)
+                }
               }}
             >Save</button>
           </div>
         </div>
+        {showWarning ? <span className="text-red-500">This field cannot be empty.</span> : null}
       </div>
     </div>
   )
