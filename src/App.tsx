@@ -12,6 +12,7 @@ function App() {
       <CurrentUserProvider>
         <BrowserRouter>
           <Routes>
+            <Route path='/' element={<PrivateRoute><HomePage/></PrivateRoute>}/>
             <Route path='/login' element={<PublicRoute><LoginPage/></PublicRoute>}/>
             <Route path='/home' element={<PrivateRoute><HomePage/></PrivateRoute>}/>
           </Routes>
