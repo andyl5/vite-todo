@@ -1,12 +1,16 @@
-import { onAuthStateChanged } from "firebase/auth"
+import { User, onAuthStateChanged } from "firebase/auth"
 import { createContext, useContext, useEffect, useState } from "react"
 import { auth } from "../../firebase"
 
-export const CurrentUserContext = createContext(null)
+export const CurrentUserContext = createContext<object | null>(null)
 
-export const CurrentUserProvider = ( { children } ) => {
+type Props = {
+  children: React.ReactNode
+}
+
+export const CurrentUserProvider = ( { children }: Props ) => {
   
-  const [authUser, setAuthUser] = useState(null)  
+  const [authUser, setAuthUser] = useState<User | null>(null)  
   
   // needs to check if the app is finished loading, before rendering the router.
   // (without loading) i think the context renders immediately and before we check if the authUser exists, which is why...

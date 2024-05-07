@@ -5,14 +5,13 @@ type Props = {
   itemObject: {
     id: string,
     name: string,
-    status: 'ongoing' | 'completed',
   }
   setItemName: Dispatch<SetStateAction<string>>,
   setIsEditing: Dispatch<SetStateAction<boolean>>,
 }
 
 export default function EditItem( { itemObject, setItemName, setIsEditing }: Props) {
-  const { id, name, status } = itemObject
+  const { id, name } = itemObject
   const [tempItemName, setTempItemName] = useState<string>(name)
   const [showWarning, setShowWarning] = useState(false)
 
@@ -36,7 +35,8 @@ export default function EditItem( { itemObject, setItemName, setIsEditing }: Pro
               className="w-full bg-black hover:bg-gray-950 active:bg-gray-900 text-white transition-all rounded py-2 text-[18px]"
               onClick={async () => {
                 if (tempItemName.trim().length > 0) {
-                  const { error } = await supabase.from('items').update({name: tempItemName}).eq('id', id)
+                  // const { error } = await supabase.from('items').update({name: tempItemName}).eq('id', id)
+                  await supabase.from('items').update({name: tempItemName}).eq('id', id)
                   setItemName(tempItemName)
                   setIsEditing(false)
                   setShowWarning(false)

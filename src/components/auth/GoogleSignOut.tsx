@@ -5,13 +5,12 @@ export default function GoogleSignOut() {
   const auth = getAuth();
   const userSignOut = () => {
 
-    signOut(auth).then(() => {
-      // Sign-out successful.
-      // console.log('signed out'); 
-    }).catch((error) => {
-      // console.log(error);
-      // An error happened.
-    });
+    signOut(auth)
+    // .then(() => {
+    //   // Sign-out successful.
+    // }).catch((error) => {
+    //   // An error happened.
+    // });
   }
 
   return (

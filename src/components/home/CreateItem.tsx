@@ -1,7 +1,8 @@
 import { Dispatch, SetStateAction, useContext, useState } from "react"
 import { ItemObject } from "./TodoList"
-import supabase from "../../utils/supabase"
 import { CurrentUserContext } from "../auth/CurrentUserContext"
+import supabase from "../../utils/supabase"
+import { User as FirebaseUser } from "firebase/auth"
 
 type Props = {
   setShowCreateItem: Dispatch<SetStateAction<boolean>>,
@@ -11,7 +12,7 @@ type Props = {
 
 export default function CreateItem( { setShowCreateItem, itemArray, setItemArray }: Props ) {
 
-  const authUser = useContext(CurrentUserContext)
+  const authUser: FirebaseUser | null = useContext(CurrentUserContext) as FirebaseUser | null;
 
   const [itemName, setItemName] = useState('')
   const [showWarning, setShowWarning] = useState(false)
@@ -35,12 +36,14 @@ export default function CreateItem( { setShowCreateItem, itemArray, setItemArray
             <button 
               className="w-full bg-black hover:bg-gray-950 active:bg-gray-900 text-white transition-all rounded py-2 text-[18px]"
               onClick={async () => {
-                if (itemName.trim().length > 0) {
+                if (itemName.trim().length > 0 && authUser) {
                   // Supabase INSERT
                   const { data: userData } = await supabase.from('users').select('id').eq('google_uid', authUser.uid).single();
-                  const userId = userData.id;
-                  const { data: itemData } = await supabase.from('items').insert({ name: itemName, status: 'ongoing', user_id: userId}).select().single();
-                  setItemArray([itemData, ...itemArray])
+                  if (userData) {
+                    const userId = userData.id;
+                    const { data: itemData } = await supabase.from('items').insert({ name: itemName, status: 'ongoing', user_id: userId}).select().single();
+                    setItemArray([itemData, ...itemArray])
+                  }
                   setShowCreateItem(false)
                   setShowWarning(false)
                 } else {

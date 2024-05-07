@@ -3,6 +3,7 @@ import { CurrentUserContext } from "../auth/CurrentUserContext"
 import Item from "./Item"
 import CreateItem from "./CreateItem"
 import supabase from "../../utils/supabase"
+import { User as FirebaseUser } from "firebase/auth"
 
 export interface ItemObject {
   id: string,
@@ -11,15 +12,17 @@ export interface ItemObject {
 }
 
 export default function TodoList() {
-  const authUser = useContext(CurrentUserContext)
+  const authUser: FirebaseUser | null = useContext(CurrentUserContext) as FirebaseUser | null;
   const [itemArray, setItemArray] = useState<ItemObject[]>([])
   const [showCreateItem, setShowCreateItem] = useState<boolean>(false)
   const [itemFilter, setItemFilter] = useState<'all' | 'ongoing' | 'completed'>('all')
 
   useEffect(() => {
     const getItems = async () => {
-      const { data } = await supabase.from('items').select(`id, name, status, users!inner(id)`).eq(`users.google_uid`, authUser.uid)
-      setItemArray(data)
+      if (authUser) {
+        const { data } = await supabase.from('items').select(`id, name, status, users!inner(id)`).eq(`users.google_uid`, authUser.uid)
+        if (data) setItemArray(data)
+      }
     }
     getItems()
   }, [])
@@ -29,13 +32,15 @@ export default function TodoList() {
     const obj = arr.find(item => item.id === idToUpdate)
     if (obj) {
       obj.status = obj.status === 'ongoing' ? 'completed' : 'ongoing'
-      const { error } = await supabase.from('items').update({status: obj.status}).eq('id', idToUpdate)
+      // const { error } = await supabase.from('items').update({status: obj.status}).eq('id', idToUpdate)
+      await supabase.from('items').update({status: obj.status}).eq('id', idToUpdate)
       setItemArray(arr)
     }
   }
 
   async function deleteItem(idToRemove: string) {
-    const { error } = await supabase.from('items').delete().eq('id', idToRemove)
+    // const { error } = await supabase.from('items').delete().eq('id', idToRemove)
+    await supabase.from('items').delete().eq('id', idToRemove)
     setItemArray(itemArray.filter(item => item.id !== idToRemove))
   }
 

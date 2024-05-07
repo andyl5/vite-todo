@@ -1,4 +1,5 @@
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup } from "firebase/auth";
+// import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { provider } from "./GoogleProvider"
 
 export default function GoogleSignIn() {
@@ -6,28 +7,28 @@ export default function GoogleSignIn() {
 
   const signIn = () => {  
     signInWithPopup(auth, provider)
-    .then((result) => {
+    // .then((result) => {
       // console.log(result);
       // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
-      // The signed-in user info.
-      const user = result.user;
-      // IdP data available using getAdditionalUserInfo(result)
-      // ...
+      // const credential = GoogleAuthProvider.credentialFromResult(result);
+      // if (credential) {
+        // const token = credential.accessToken;
+        // The signed-in user info.
+        // const user = result.user;
+        // IdP data available using getAdditionalUserInfo(result)
+      // }
 
-    }).catch((error) => {
+    // }).catch((error) => {
       // console.log(error);
       // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
+      // const errorCode = error.code;
+      // const errorMessage = error.message;
       // The email of the user's account used.
-      const email = error.customData.email;
+      // const email = error.customData.email;
       // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
+      // const credential = GoogleAuthProvider.credentialFromError(error);
       
-    });
+    // });
   }
 
   return (
