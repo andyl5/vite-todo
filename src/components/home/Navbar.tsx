@@ -8,9 +8,9 @@ export default function Navbar() {
   
   return (
     <div className="flex justify-end mt-3 mr-3">
-      <div className="flex flex-row justify-end items-center gap-x-2 text-[18px]">
+      <div className="flex flex-row justify-end items-center gap-x-2">
         {/* <p>{`Hi, ${authUser.displayName}!`}</p> */}
-        <p>{authUser ? `Hi, ${authUser.displayName}!` : ''}</p>
+        <p className="text-[24px] font-medium">{authUser ? `Hi, ${authUser.displayName}!` : ''}</p>
         <GoogleSignOut/>
       </div>
     </div>

@@ -46,7 +46,7 @@ export default function TodoList() {
 
   return (
     <div className="font-roboto flex flex-col items-center">
-			<div className="border-2 border-gray-800 w-[800px] bg-slate-100 flex flex-col items-center ">
+			<div className="border-2 border-gray-800 w-[800px] bg-slate-100 flex flex-col items-center rounded-lg">
 				<h1 className="text-[32px]">{`${authUser ? `${authUser.displayName}'s ` : ''}TODO`}</h1>
 				{/* filters */}
 				<div className="flex justify-around px-6 gap-x-4 w-full mb-6">

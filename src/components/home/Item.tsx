@@ -18,7 +18,7 @@ export default function Item( { itemObject, updateStatus, deleteItem }: Props ) 
 	const [itemName, setItemName] = useState<string>(name)
 
 	const itemElement = (
-		<div className="border-2 p-4 mb-4 bg-white flex">
+		<div className="border-2 p-4 mb-4 bg-white flex shadow-xl rounded-md">
 			<input type="checkbox" onChange={() => updateStatus(id)} checked={status === 'completed' ? true : false} 
 			className="w-8 mr-4 rounded-lg"/>
 
