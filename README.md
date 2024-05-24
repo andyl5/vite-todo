@@ -1,3 +1,23 @@
+# Taskify
+Taskify is a web-based productivity app to help you organize your tasks and get them done more efficiently.
+
+## Tech Stack
+React, TypeScript, Firebase Authentication, Supabase Postgres, Tailwind CSS
+
+## How It Works
+1. Users sign up/login with a Google account. The user's data is stored in the database.
+2. The app queries the database for all the user's tasks.
+3. Users can create, update or delete tasks. These changes are reflected in the database.
+
+## Lessons Learned
+I learned TypeScript to improve the development process. 
+
+I learned to use Firebase for user authentication. 
+
+I used a Postgres database to store and query data, and the Supabase SDK to perform CRUD operations on the database.
+
+#
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
