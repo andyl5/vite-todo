@@ -16,6 +16,9 @@ I learned to use Firebase for user authentication.
 
 I used a Postgres database to store and query data, and the Supabase SDK to perform CRUD operations on the database.
 
+## Disclaimer
+This project uses the free tier of Supabase, as a result projects are paused after a week of inactivity and this project will not work as intended.
+
 #
 
 # React + TypeScript + Vite
